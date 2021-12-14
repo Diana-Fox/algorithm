@@ -2,6 +2,9 @@ package class01;
 
 /**
  * 插入排序
+ * 对要排序的位，往前看，
+ * 比当前大可以停下，如果比当前小就交换，
+ * 直到交换到最前面都是比自己小的
  */
 public class Code_InsertionSort {
     public static void insertionSort(int[] arr) {
