@@ -53,10 +53,25 @@ public class Code_EvenTimesOddTime {
         }
         int ans = 0;
         for (int i = 0; i < 32; i++) {
+            if (t[i] % m == 0) {
+                continue;
+            }
             if (t[i] % m != 0 && t[i] % m == k) {
                 //通过或运算设置进去
                 ans |= (1 << i);
             } else {
+                return -1;
+            }
+        }
+        if (ans == 0) {
+            int count = 0;
+            for (int num :
+                    arr) {
+                if (num == 0) {
+                    count++;
+                }
+            }
+            if (count != k) {
                 return -1;
             }
         }
@@ -85,12 +100,14 @@ public class Code_EvenTimesOddTime {
     //随机数组生成
     public static int[] randomArray(int maxKinds, int range, int k, int m) {
         int ktimeNum = randomNumber(range);//这个是出现k次的数
+        //以0.5的概率，出现错误的值，方便判断边界条件
+        int times = Math.random() < 0.5 ? k : ((int) (Math.random() * (m - 1)) + 1);
         //最多这么多种数
         int numKinds = (int) (Math.random() * maxKinds) + 2;
         //k*1+(numKinds-1)*m 一种数出现k次，剩下出现m次，所以数组长度为这个
-        int[] arr = new int[k + (numKinds - 1) * m];
+        int[] arr = new int[times + (numKinds - 1) * m];
         int index = 0;
-        for (; index < k; index++) {
+        for (; index < times; index++) {
             arr[index] = ktimeNum;
         }
         numKinds--;//剩余需要填充的数
